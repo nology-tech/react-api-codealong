@@ -130,3 +130,8 @@ export default App;
 ```
 
 ---
+
+### Move onto Challenges
+
+- [Challenge](./challenge/challenge.md)
+- [Solution](./challenge/solution.md)
