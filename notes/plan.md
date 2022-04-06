@@ -1,4 +1,4 @@
-# 01-lesson-start
+# lesson-start
 
 In App.jsx:
 
