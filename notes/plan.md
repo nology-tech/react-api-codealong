@@ -1,4 +1,4 @@
-# 01-lesson-start
+# lesson-start
 
 In App.jsx:
 
@@ -90,5 +90,5 @@ export default App;
 
 ### Move onto Challenges
 
-- [Challenge]("../challenge/challenge.md")
-- [Solution]("../challenge/solution.md")
+- [Challenge](./challenge/challenge.md)
+- [Solution](./challenge/solution.md)
