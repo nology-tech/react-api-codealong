@@ -1,4 +1,6 @@
 .radio-buttons {
+  display: flex;
+  flex-wrap: wrap;
   &__label {
     margin-left: 5px;
     margin-right: 10px;
