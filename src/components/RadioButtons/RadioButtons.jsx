@@ -1,27 +1,29 @@
 import React from "react";
 import "./RadioButtons.scss";
 
-const RadioButtons = ({ onClick, options, caption }) => {
+const RadioButtons = ({ onChange, selected, options, label }) => {
   return (
     <div className="radio-buttons">
-      <p>{caption}</p>
-      {options.map((option, index) => (
-        <React.Fragment key={"radio-button" + index}>
-          <input
-            type="radio"
-            name="gender"
-            value={option.toLowerCase()}
-            onClick={onClick}
-            defaultChecked={index === 0}
-          />
-          <label
-            className="radio-buttons__label"
-            htmlFor={option.toLowerCase()}
-          >
-            {option}
-          </label>
-        </React.Fragment>
-      ))}
+      <p>{label}</p>
+      {options.map((option, index) => {
+        const optionLower = option.toLowerCase();
+        const optionCapitalized =
+          optionLower[0].toUpperCase() + optionLower.slice(1);
+        return (
+          <div key={"radio-button" + option + index}>
+            <input
+              type="radio"
+              name="gender"
+              value={optionLower}
+              checked={optionLower === selected.toLowerCase()}
+              onChange={onChange}
+            />
+            <label className="radio-buttons__label" htmlFor={optionLower}>
+              {optionCapitalized}
+            </label>
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -7,11 +7,10 @@ import RangeInput from "./components/RangeInput/RangeInput";
 const App = () => {
   const [users, setUsers] = useState([]);
   const [numberOfUsers, setNumberOfUsers] = useState(5);
-  const [filterBy, setFilterBy] = useState("all");
-
-  const url = "https://randomuser.me/api";
+  const [gender, setGender] = useState("all");
 
   const getUsers = async (resultNumber, genderFilter) => {
+    const url = "https://randomuser.me/api";
     let urlWithParams = url + `?results=${resultNumber}`;
 
     if (genderFilter !== "all") {
@@ -25,15 +24,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    getUsers(numberOfUsers, filterBy);
-  }, [numberOfUsers, filterBy]);
+    getUsers(numberOfUsers, gender);
+  }, [numberOfUsers, gender]);
 
   const handleInputChange = (event) => {
     setNumberOfUsers(event.target.value);
   };
 
-  const handleClick = (event) => {
-    setFilterBy(event.target.value);
+  const handleChange = (event) => {
+    setGender(event.target.value);
   };
 
   return (
@@ -47,7 +46,12 @@ const App = () => {
         value={numberOfUsers}
         onChange={handleInputChange}
       />
-      <RadioButtons onClick={handleClick} options={["All", "Female", "Male"]} caption="Select User Gender:"/>
+      <RadioButtons
+        onChange={handleChange}
+        selected={gender}
+        options={["all", "female", "male"]}
+        label="Select User Gender:"
+      />
       <CardContainer cards={users} />
     </div>
   );
