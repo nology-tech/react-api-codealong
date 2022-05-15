@@ -6,9 +6,8 @@ import CardContainer from "./components/CardContainer/CardContainer";
 const App = () => {
   const [users, setUsers] = useState([]);
 
-  const url = "https://randomuser.me/api?results=5";
-
   const getUsers = async () => {
+    const url = "https://randomuser.me/api?results=5";
     const res = await fetch(url);
     const data = await res.json();
     setUsers(data.results);

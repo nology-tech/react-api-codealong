@@ -52,7 +52,12 @@ In App.jsx:
 
 - Initialize some new state this will be how we store the number of users we want to see.
 
-- In the `getUsers()` function update the url to add the query param onto the end `?results=${resultNumber}`. Use the state to control the number requested.
+  - `const [numberOfUsers, setNumberOfUsers] = useState(7);`
+
+- Update the `getUsers()` function to accept a parameter this will be the `resultNumber`, the amount of random users we want to display. We give it as a parameter because if we used the `numberOfUsers` state inside the function, the function would become a dependency as it would be changing whenever the state did.
+
+  - Use this parameter to update the url to add the query param onto the end `?results=${resultNumber}`.
+  - In the useEffect() where we call the function add the `numberOfUsers` state as the argument.
 
 - Write a function to handle the input change and update the state.
 
@@ -61,9 +66,8 @@ In App.jsx:
 
 const [numberOfUsers, setNumberOfUsers] = useState(7);
 
-const url = "https://randomuser.me/api";
-
 const getUsers = async (resultNumber) => {
+  const url = "https://randomuser.me/api";
   const res = await fetch(url + `?results=${resultNumber}`);
   const data = await res.json();
   setUsers(data.results);
@@ -94,9 +98,8 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [numberOfUsers, setNumberOfUsers] = useState(7);
 
-  const url = "https://randomuser.me/api";
-
   const getUsers = async (resultNumber) => {
+    const url = "https://randomuser.me/api";
     const res = await fetch(url + `?results=${resultNumber}`);
     const data = await res.json();
     setUsers(data.results);
