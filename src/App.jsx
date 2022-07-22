@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.scss";
 import Button from "./components/Button/Button";
-import CardContainer from "./components/CardContainer/CardContainer";
+import ProfileContainer from "./components/ProfileContainer/ProfileContainer";
 
 const App = () => {
   const [users, setUsers] = useState([]);
@@ -17,7 +17,7 @@ const App = () => {
     <div className="app">
       <h1>Random User Generator</h1>
       <Button onClick={getUsers} label="Get Random Users" />
-      <CardContainer cards={users} />
+      <ProfileContainer profiles={users} />
     </div>
   );
 };
