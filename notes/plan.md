@@ -1,5 +1,7 @@
 # lesson-start
 
+## Introducing the API
+
 Introduce them to the [Random user API](https://randomuser.me/documentation#howto) that you will be using.
 
 On the docs above it gives you the endpoint to send your requests to `https://randomuser.me/api/`.
@@ -10,12 +12,14 @@ On the docs it shows you how to get multiple users. To do so you add this `resul
 
 For now this `https://randomuser.me/api/?results=5` will be the URL we use to fetch random users.
 
+## Getting a Random User
+
 In App.jsx:
 
 - Import the `<Button/>` component
-- Write a async `getUsers()` function. Talk through `async/await` syntax and for now it can just log the result to the console.
-- Hook up the `getUsers()` function to run onClick of the `<Button/>`.
-- Show that we do get back 5 random user objects in an array.
+- Write an async `getUser()` function. Talk through `async/await` syntax and for now it can just log a single result to the console.
+- Hook up the `getUser()` function to run onClick of the `<Button/>`.
+- Show that we do get back an array with one random user object inside it.
 
 ```jsx
 // App.jsx
@@ -24,8 +28,8 @@ import "./App.scss";
 import Button from "./components/Button/Button";
 
 const App = () => {
-  const getUsers = async () => {
-    const url = `https://randomuser.me/api/?results=5`;
+  const getUser = async () => {
+    const url = `https://randomuser.me/api`;
     const res = await fetch(url);
     const data = await res.json();
     console.log(data.results[0]);
@@ -34,7 +38,7 @@ const App = () => {
   return (
     <div className="app">
       <h1>Random User Generator</h1>
-      <Button onClick={getUsers} label="Get Random User" />
+      <Button onClick={getUser} label="Get Random User" />
     </div>
   );
 };
@@ -42,10 +46,10 @@ const App = () => {
 export default App;
 ```
 
-- You can compare what the same function would look like with `.then()`
+- If students are not so familiar with async/ await, you can compare what the same function would look like with `.then()`
 
 ```jsx
-const getUsers = () => {
+const getUser = () => {
   fetch(url)
     .then((res) => res.json())
     .then((data) => console.log(data.results[0]));
@@ -56,11 +60,13 @@ const getUsers = () => {
 - Set the first user from the API to state instead of logging it.
 
 ```jsx
-const getUsers = async () => {
+const [user, setUser] = useState();
+
+const getUser = async () => {
   const url = `https://randomuser.me/api/?results=5`;
   const res = await fetch(url);
   const data = await res.json();
-  setUsers(data.results[0]);
+  setUser(data.results[0]);
 };
 ```
 
@@ -71,23 +77,24 @@ const getUsers = async () => {
 return (
   <div className="app">
     <h1>Random User Generator</h1>
-    <Button onClick={getUsers} label="Get Random User" />
+    <Button onClick={getUser} label="Get Random User" />
     {user && (
       <ProfileCard
-        userName={`${user.name.first} ${user.name.last}`}
-        userImage={user.picture.large}
-        userEmail={user.email}
-        userPhoneNumber={user.phone}
+        name={`${user.name.first} ${user.name.last}`}
+        image={user.picture.large}
+        email={user.email}
+        phoneNumber={user.phone}
       />
     )}
   </div>
 );
 ```
 
+## Multiple Users
+
 - Great, time to update it so you set the results array to state rather then a single user in `getUser()`.
   - `setUsers(data.results);`
   - This will break your code so either comment it out or add `user[0]` to where you give the `<ProfileCard/>` its props.
-  -
 - The Completed App is below, afterwards move onto the challenge.
 
 ```jsx
@@ -101,7 +108,7 @@ import ProfileCard from "./components/ProfileCard/ProfileCard";
 const App = () => {
   const [users, setUsers] = useState();
 
-  const getUser = async () => {
+  const getUsers = async () => {
     const url = `https://randomuser.me/api/?results=5`;
     const res = await fetch(url);
     const data = await res.json();
@@ -114,10 +121,10 @@ const App = () => {
       <Button onClick={getUsers} label="Get Random User" />
       {users && (
         <ProfileCard
-          userName={`${user[0].name.first} ${user[0].name.last}`}
-          userImage={user[0].picture.large}
-          userEmail={user[0].email}
-          userPhoneNumber={user[0].phone}
+          userName={`${users[0].name.first} ${users[0].name.last}`}
+          userImage={users[0].picture.large}
+          userEmail={users[0].email}
+          userPhoneNumber={users[0].phone}
         />
       )}
     </div>
