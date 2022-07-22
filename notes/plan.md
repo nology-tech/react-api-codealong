@@ -16,14 +16,13 @@ In App.jsx:
 // App.jsx
 import { useEffect, useState } from "react";
 import "./App.scss";
-import CardContainer from "./components/CardContainer/CardContainer";
+import ProfileContainer from "./components/ProfileContainer/ProfileContainer";
 
 const App = () => {
   const [users, setUsers] = useState([]);
 
-  const url = "https://randomuser.me/api";
-
   const getUsers = async () => {
+    const url = "https://randomuser.me/api?results=5";
     const res = await fetch(url);
     const data = await res.json();
     setUsers(data.results);
@@ -36,7 +35,7 @@ const App = () => {
   return (
     <div className="app">
       <h1>Random User Generator</h1>
-      <CardContainer cards={users} />
+      <ProfileContainer profiles={users} />
     </div>
   );
 };
@@ -59,28 +58,27 @@ In App.jsx:
   - Use this parameter to update the url to add the query param onto the end `?results=${resultNumber}`.
   - In the useEffect() where we call the function add the `numberOfUsers` state as the argument.
 
+- Talk through the `<RangeInput/>` component, talk through its props.
+- Import it into app and give it the props it needs.
+
+```jsx
+<RangeInput
+  id="user-range"
+  label={`Number of users: ${numberOfUsers}`}
+  min={1}
+  max={10}
+  value={numberOfUsers}
+  onChange={handleInputChange}
+/>
+```
+
 - Write a function to handle the input change and update the state.
 
 ```jsx
-// App.jsx
-
-const [numberOfUsers, setNumberOfUsers] = useState(7);
-
-const getUsers = async (resultNumber) => {
-  const url = "https://randomuser.me/api";
-  const res = await fetch(url + `?results=${resultNumber}`);
-  const data = await res.json();
-  setUsers(data.results);
-};
-
 const handleInputChange = (event) => {
   setNumberOfUsers(event.target.value);
 };
 ```
-
-- Talk through the `<RangeInput/>` component, talk through its props.
-
-- Import it into app and give it the props it needs.
 
 - The last step is to add the `numberOfUsers` to the dependency array.
 
@@ -91,7 +89,7 @@ The Completed App is below.
 
 import { useEffect, useState } from "react";
 import "./App.scss";
-import CardContainer from "./components/CardContainer/CardContainer";
+import ProfileContainer from "./components/ProfileContainer/ProfileContainer";
 import RangeInput from "./components/RangeInput/RangeInput";
 
 const App = () => {
@@ -124,7 +122,7 @@ const App = () => {
         value={numberOfUsers}
         onChange={handleInputChange}
       />
-      <CardContainer cards={users} />
+      <ProfileContainer profiles={users} />
     </div>
   );
 };
