@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
-import CardContainer from "./components/CardContainer/CardContainer";
+import ProfileContainer from "./components/ProfileContainer/ProfileContainer";
 import RadioButtons from "./components/RadioButtons/RadioButtons";
 import RangeInput from "./components/RangeInput/RangeInput";
 
@@ -52,7 +52,7 @@ const App = () => {
         options={["all", "female", "male"]}
         label="Select User Gender:"
       />
-      <CardContainer cards={users} />
+      <ProfileContainer profiles={users} />
     </div>
   );
 };
